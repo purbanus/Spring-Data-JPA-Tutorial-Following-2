@@ -42,7 +42,6 @@ public void saveCourseWithTeacher() {
 @Test
 public void printCourses() {
     List<Course> courses = courseRepository.findAll();
-    
     System.out.println("courses = " + courses);
 }
 @Test
@@ -84,7 +83,7 @@ public void findAllSorting() {
                     .descending()
                     .and(Sort.by("credit"))
             );
-    
+
     List<Course> courses
             = courseRepository.findAll(sortByTitle).getContent();
 
