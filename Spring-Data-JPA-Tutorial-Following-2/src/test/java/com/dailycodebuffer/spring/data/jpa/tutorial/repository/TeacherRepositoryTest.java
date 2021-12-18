@@ -5,6 +5,7 @@ import com.dailycodebuffer.spring.data.jpa.tutorial.entity.Teacher;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -39,9 +40,17 @@ class TeacherRepositoryTest {
         teacherRepository.save(teacher);
     }
     @Test
+    @Transactional
     public void puTestGetAll() {
 
         List<Teacher> teachers = teacherRepository.findAll();
-        System.out.println( teachers );
+        for ( Teacher teacher : teachers )
+		{
+        	System.err.println( teacher );
+			for ( Course course : teacher.getCourses() )
+			{
+				System.err.println( course );
+			}
+		}
     }
 }

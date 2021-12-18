@@ -14,6 +14,7 @@ import org.springframework.data.domain.Sort;
 
 import com.dailycodebuffer.spring.data.jpa.tutorial.entity.Course;
 import com.dailycodebuffer.spring.data.jpa.tutorial.entity.CourseMaterial;
+import com.dailycodebuffer.spring.data.jpa.tutorial.entity.Student;
 import com.dailycodebuffer.spring.data.jpa.tutorial.entity.Teacher;
 
 @SpringBootTest
@@ -107,6 +108,31 @@ public void printfindByTitleContaining() {
  * Course(courseId=13, title=DBA, credit=5, courseMaterial=null, teacher=null)]
 
  */
+}
+@Test
+public void saveCourseWithStudentAndTeacher() {
+
+    Teacher teacher = Teacher.builder()
+            .firstName("Lizze")
+            .lastName("Morgan")
+            .build();
+
+    Student student = Student.builder()
+            .firstName("Abhishek")
+            .lastName("Singh")
+            .emailId("abhishek@gmail.com")
+            .build();
+
+    Course course = Course
+            .builder()
+            .title("AI")
+            .credit(12)
+            .teacher(teacher)
+            .build();
+
+    course.addStudents(student);
+
+    courseRepository.save(course);
 }
 
 

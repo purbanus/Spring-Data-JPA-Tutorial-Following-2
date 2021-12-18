@@ -61,26 +61,28 @@ private CourseMaterial courseMaterial;
         name = "teacher_id",
         referencedColumnName = "teacherId"
 )
-    private Teacher teacher;
+private Teacher teacher;
 
-//@ManyToMany(
-//        cascade = CascadeType.ALL
-//)
-//@JoinTable(
-//        name = "studen_course_map",
-//        joinColumns = @JoinColumn(
-//                name = "course_id",
-//                referencedColumnName = "courseId"
-//        ),
-//        inverseJoinColumns = @JoinColumn(
-//                name = "student_id",
-//                referencedColumnName = "studentId"
-//        )
-//)
-//private List<Student> students;
-//
-//public void addStudents(Student student){
-//    if(students == null) students = new ArrayList<>();
-//    students.add(student);
-//}
+@ManyToMany(
+        cascade = CascadeType.ALL
+)
+@JoinTable(
+        name = "studen_course_map",
+        joinColumns = @JoinColumn(
+        	// Both from the Course class/table, I think
+                name = "course_id",
+                referencedColumnName = "courseId"
+        ),
+        inverseJoinColumns = @JoinColumn(
+        	// Both from the Student class/table, I think
+                name = "student_id",
+                referencedColumnName = "studentId"
+        )
+)
+private List<Student> students;
+
+public void addStudents(Student student){
+    if(students == null) students = new ArrayList<>();
+    students.add(student);
+}
 }
