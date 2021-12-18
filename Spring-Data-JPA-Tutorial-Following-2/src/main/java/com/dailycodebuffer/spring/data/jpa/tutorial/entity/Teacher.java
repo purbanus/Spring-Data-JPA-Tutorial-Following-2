@@ -1,20 +1,30 @@
 package com.dailycodebuffer.spring.data.jpa.tutorial.entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+
+import org.springframework.transaction.annotation.Transactional;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import javax.persistence.*;
-import java.util.List;
-
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-// Dit is om een StackOverflowException te voorkomen: Teacher.toString() gebruikt Course.toString die weer  Teacher.toString gebruikt, etc ad nauseam
+// Dit is om een StackOverflowException te voorkomen: Teacher.toString() gebruikt Course.toString die weer  Teacher.toString gebruikt, etc etc ad nauseam
 @ToString(exclude = "courses")
 public class Teacher {
 
@@ -47,7 +57,7 @@ public class Teacher {
 	@OneToMany(
 		mappedBy = "teacher",
 		cascade = CascadeType.ALL, // Zodat de courses ook gesavet worden
-		fetch = FetchType.EAGER // Anders krijgen we die LazyException
+		fetch = FetchType.LAZY 
 	)
     private List<Course> courses;
 }
